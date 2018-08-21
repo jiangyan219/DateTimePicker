@@ -1,0 +1,376 @@
+﻿<!--
+**************************************************************** 
+* 作    者 ：姜  彦 
+* 项目名称 ：Utility.Tool.Controls.View
+* 控件名称 ：TDateTimeView 
+* 命名空间 ：Utility.Tool.Controls.View
+* CLR 版本 ：4.0.30319.42000
+* 创建时间 ：2017/8/4 9:10:14 
+* 当前版本 ：1.0.0.1 
+* My  Email：771078740@qq.com 
+* 描述说明： 
+* 
+* 修改历史： 
+* 
+****************************************************************
+* Copyright @ JiangYan 2018 All rights reserved 
+****************************************************************
+-->
+<UserControl x:Class="Utility.Tool.Controls.View.TDateTimeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="252"
+             d:DesignWidth="235"
+             xmlns:my="clr-namespace:Utility.Tool.Controls.View"
+             Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+
+        <Style x:Key="CommonDataGridStyle"
+               TargetType="DataGrid">
+            <!--网格线颜色-->
+            <Setter Property="Background"
+                    Value="#829db2" />
+            <Setter Property="BorderBrush"
+                    Value="#00c5d6e6" />
+            <Setter Property="HorizontalGridLinesBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="#d2d2d2" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalGridLinesBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="#d2d2d2" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CommonDataGridColumnHeaderStyle"
+               TargetType="DataGridColumnHeader">
+            <Setter Property="SnapsToDevicePixels"
+                    Value="True" />
+            <Setter Property="MinWidth"
+                    Value="0" />
+            <Setter Property="MinHeight"
+                    Value="28" />
+            <Setter Property="Foreground"
+                    Value="#ffffff" />
+            <Setter Property="FontSize"
+                    Value="12" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Setter Property="Height"
+                    Value="25" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Border x:Name="BackgroundBorder"
+                                BorderThickness="0,0,0,1"
+                                BorderBrush="#c1d8e8"
+                                Width="Auto">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter  Margin="0,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
+                                <Path x:Name="SortArrow"
+                                      Visibility="Collapsed"
+                                      Data="M0,0 L1,0 0.5,1 z"
+                                      Stretch="Fill"
+                                      Grid.Column="2"
+                                      Width="8"
+                                      Height="6"
+                                      Fill="White"
+                                      Margin="0,0,50,0"
+                                      VerticalAlignment="Center"
+                                      RenderTransformOrigin="1,1" />
+                                <Rectangle Width="1"
+                                           Fill="#c1d8e8"
+                                           HorizontalAlignment="Right"
+                                           Grid.ColumnSpan="1" />
+                                <!--<TextBlock  Background="Red">
+                                <ContentPresenter></ContentPresenter></TextBlock>-->
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CommonDataGridRowStyle"
+               TargetType="DataGridRow">
+            <Setter Property="Background"
+                    Value="#F2F2F2" />
+            <Setter Property="Foreground"
+                    Value="Black" />
+            <Style.Triggers>
+                <!--隔行换色-->
+                <Trigger Property="AlternationIndex"
+                         Value="0">
+                    <Setter Property="Background"
+                            Value="#ffffff" />
+                </Trigger>
+                <Trigger Property="AlternationIndex"
+                         Value="1">
+                    <Setter Property="Background"
+                            Value="#ffffff" />
+                </Trigger>
+                <!--<Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>-->
+                <Trigger Property="IsSelected"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#ffffff" />
+                    <Setter Property="Foreground"
+                            Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CommonButtonStyle"
+               TargetType="{x:Type Button}">
+            <Setter Property="FontSize"
+                    Value="12" />
+            <Setter Property="Foreground"
+                    Value="Black" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder"
+                                CornerRadius="3"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True"
+                                Background="#FFFFFF"
+                                Margin="0">
+                            <!--Background="#FFFFFF"按钮背景颜色 姜彦20180420 0937-->
+                            <Grid>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,0,0,0" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed"
+                                     Value="true">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.5">
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                     Value="false">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#d8d8d8">
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CommonButtonStyle2"
+               TargetType="{x:Type Button}">
+            <Setter Property="FontSize"
+                    Value="12" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder"
+                                CornerRadius="3"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True"
+                                Background="{TemplateBinding Background}"
+                                Margin="0">
+                            <!--Background="#FFFFFF"按钮背景颜色 姜彦20180420 0937-->
+                            <Grid>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,0,0,0" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed"
+                                     Value="true">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.5">
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                     Value="false">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#d8d8d8">
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Border BorderBrush="#FF93C2F8"
+            BorderThickness="1">
+
+        <Grid Height="229"
+              Width="185"
+              Background="White">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24" />
+                <RowDefinition Height="186*" />
+                <RowDefinition Height="39" />
+
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Background="#FFAFCCF8">
+                <TextBlock x:Name="tbTitle"
+                           Text="日期时间"
+                           VerticalAlignment="Center"
+                           FontSize="12"
+                           Margin="70,0,0,0"
+                           Foreground="White" />
+
+                <my:IconButton HorizontalAlignment="Left"
+                               Margin="165,3,0,0"
+                               x:Name="iBtnCloseView"
+                               VerticalAlignment="Top"
+                               Height="18"
+                               Width="18"
+                               Icon="/Utility.Tool.Controls;component/Image/close.png"
+                               Click="iBtnCloseView_Click" />
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Calendar Name="calDate"
+                          Height="165"
+                          Width="186"
+                          Margin="0,0,0,0"
+                          VerticalAlignment="Top"
+                          PreviewMouseUp="calDate_PreviewMouseUp" />
+
+            </Grid>
+
+            <Grid Grid.Row="2"
+                  Margin="0,0,0,6">
+
+                <Border x:Name="TDateTime2"
+                        BorderBrush="#FFA6D4F8"
+                        BorderThickness="1"
+                        Margin="35,-1,84,0"
+                        Height="23">
+
+                </Border>
+
+
+                <Label Name="lblTime"
+                       Content="时间"
+                       Height="28"
+                       HorizontalAlignment="Left"
+                       Margin="2,0,0,0" />
+
+                <Button Name="btnhh"
+                        Width="18"
+                        Height="23"
+                        Margin="36,3,0,6"
+                        Content="18"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource CommonButtonStyle}"
+                        Click="btnhh_Click" />
+
+
+
+                <TextBlock Name="textBlockh"
+                           Height="23"
+                           HorizontalAlignment="Left"
+                           Margin="55,8,0,6"
+                           Text=":" />
+
+                <Button Name="btnmm"
+                        Width="18"
+                        Height="23"
+                        Content="18"
+                        HorizontalAlignment="Left"
+                        Margin="56,3,0,6"
+                        Style="{StaticResource CommonButtonStyle}"
+                        Click="btnmm_Click" />
+
+                <TextBlock Name="textBlockm"
+                           Height="23"
+                           HorizontalAlignment="Left"
+                           Margin="75,8,0,6"
+                           Text=":" />
+
+                <Button Name="btnss"
+                        Width="18"
+                        Height="23"
+                        Content="20"
+                        HorizontalAlignment="Left"
+                        Margin="78,3,0,6"
+                        Style="{StaticResource CommonButtonStyle}"
+                        Click="btnss_Click" />
+
+                <Button Name="btnNow"
+                        Content="当前"
+                        Height="23"
+                        HorizontalAlignment="Left"
+                        Margin="105,0,0,6"
+                        VerticalAlignment="Bottom"
+                        Width="36"
+                        Style="{StaticResource CommonButtonStyle2}"
+                        Background="LightBlue"
+                        Foreground="White"
+                        Click="btnNow_Click" />
+
+                <Button Name="btnOK"
+                        Content="确定"
+                        Height="23"
+                        HorizontalAlignment="Left"
+                        Margin="143,0,0,6"
+                        VerticalAlignment="Bottom"
+                        Width="39"
+                        Style="{StaticResource CommonButtonStyle2}"
+                        Background="#ecc158"
+                        Foreground="White"
+                        Click="btnOK_Click" />
+
+            </Grid>
+
+            <Grid x:Name="girdChioce"
+                  Background="Transparent"
+                  VerticalAlignment="Top"
+                  Margin="5,188,0,40">
+                <Popup x:Name="popChioce"
+                       PopupAnimation="Fade"
+                       PlacementTarget="{Binding ElementName=girdChioce}"
+                       Placement="Top"
+                       AllowsTransparency="True"
+                       StaysOpen="False"
+                       IsOpen="False">
+                </Popup>
+            </Grid>
+
+
+        </Grid>
+
+    </Border>
+
+</UserControl>

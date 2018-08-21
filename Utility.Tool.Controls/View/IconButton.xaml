@@ -1,0 +1,72 @@
+﻿<!--
+**************************************************************** 
+* 作    者 ：姜  彦 
+* 项目名称 ：Utility.Tool.Controls.View
+* 控件名称 ：IconButton 
+* 命名空间 ：Utility.Tool.Controls.View
+* CLR 版本 ：4.0.30319.42000
+* 创建时间 ：2017/8/4 9:10:14 
+* 当前版本 ：1.0.0.1 
+* My  Email：771078740@qq.com 
+* 描述说明： 
+* 
+* 修改历史： 
+* 
+****************************************************************
+* Copyright @ JiangYan 2018 All rights reserved 
+****************************************************************
+-->
+<UserControl x:Class="Utility.Tool.Controls.View.IconButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="32" 
+             d:DesignWidth="32"
+             
+             >
+    <UserControl.Resources>
+        <Style x:Key="ButtonEmptyStyle" TargetType="{x:Type Button}">
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder"
+                                CornerRadius="3"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True"
+                                BorderBrush="Transparent"
+                                Background="{TemplateBinding Background}"
+                                Margin="0">
+                            <Grid>
+                                <ContentPresenter/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="ButtonBorder" 
+                                        Property="Opacity" 
+                                        Value="0.5">
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Button x:Name="button"
+            Background="Transparent"
+            Style="{StaticResource ButtonEmptyStyle}"
+            Padding="0"
+            Focusable="False"
+            FocusVisualStyle="{x:Null}">
+        <!--ContextMenu="{StaticResource EmerWorkContextMenu}"-->
+        <Grid>
+            <Image x:Name="icon"/>
+        </Grid>
+    </Button>
+</UserControl>

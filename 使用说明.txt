@@ -1,0 +1,2 @@
+详细设计及使用说明
+http://www.cnblogs.com/jiangyan219/articles/7284931.html
