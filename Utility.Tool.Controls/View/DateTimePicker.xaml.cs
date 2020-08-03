@@ -79,7 +79,9 @@ namespace Utility.Tool.Controls.View
         /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            DateTime dt = DateTime.Now;
+            DateTime dt = this.DateTime;
+            if(dt.Year==1)
+             dt = DateTime.Now;
             textBlock1.Text = dt.ToString("yyyy/MM/dd HH:mm:ss");//"yyyyMMddHHmmss"
             DateTime = dt;            
           //  DateTime = Convert.ToDateTime(textBlock1.Text);
