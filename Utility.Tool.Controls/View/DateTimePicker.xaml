@@ -56,7 +56,7 @@
             HorizontalAlignment="Left" 
             Margin="5,5,0,0" 
             Name="textBlock1"             
-            VerticalAlignment="Top" 
+            VerticalAlignment="Center" 
             Text="2017/07/31 18:19:20"            
             />
 
