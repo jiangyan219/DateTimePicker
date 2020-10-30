@@ -26,21 +26,18 @@
              d:DesignWidth="150" 
              xmlns:my="clr-namespace:Utility.Tool.Controls.View"             
              Loaded="UserControl_Loaded"
-             MaxWidth="150"
-             MaxHeight="25"
+             MinWidth="150"
+             MinHeight="25"
              
              >
     
-    <Grid Height="25" Width="150">
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         
         <Border BorderBrush="Silver" 
-                BorderThickness="1" HorizontalAlignment="Left" 
+                BorderThickness="1" 
                 Margin="0,0,0,0" 
                 Name="border1" 
-                Width="150" 
-                Height="25" 
-                VerticalAlignment="Top"
-                
+                Height="25"                
                 >
          
             <my:IconButton 
@@ -55,15 +52,12 @@
             
         </Border>
         
-        <TextBlock 
-            Height="23" 
+        <TextBlock             
             HorizontalAlignment="Left" 
             Margin="5,5,0,0" 
             Name="textBlock1"             
-            VerticalAlignment="Top" 
-            Text="2017/07/31 18:19:20"
-            Width="123" 
-            
+            VerticalAlignment="Center" 
+            Text="2017/07/31 18:19:20"            
             />
 
         <Grid x:Name="girdChioce" 
